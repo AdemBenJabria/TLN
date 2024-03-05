@@ -210,6 +210,8 @@ vis_dist_sent(chems_fichs)
 
 ```
 
+![plot](\plot.png)
+
 
 - **Téléchargement des Ressources NLTK :** Avant d'analyser les sentiments, il télécharge les ressources essentielles telles que `wordnet`, `stopwords`, `sentiwordnet`, `punkt`, et `averaged_perceptron_tagger` de NLTK, qui sont cruciales pour la tokenisation, le tagging POS, et l'accès à une base de données lexicale pour l'analyse sémantique.
 
