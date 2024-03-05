@@ -1,9 +1,40 @@
-# Adem BEN JABRIA 
+# Adem BEN JABRIA
 ## Université Côte D'Azur - M2 MIAGE IA2
+
 ---
 
-# traitement du langage naturel
-### Conception et implémentation d’un algorithme d’analyse de sentiment basé sur les aspects 
+# Traitement du Langage Naturel
+## Conception et Implémentation d'un Algorithme d'Analyse de Sentiment Basé sur les Aspects
+
+Dans le cadre de ce projet, nous nous intéressons à l'analyse de sentiment basée sur les aspects, une branche spécifique du traitement du langage naturel qui vise à identifier et classifier les sentiments exprimés à l'égard d'aspects spécifiques dans des textes critiques. L'objectif est de surpasser les approches traditionnelles d'analyse de sentiment en fournissant une compréhension nuancée et détaillée des opinions.
+
+### Objectifs et Approche
+
+Le projet ambitionne de mettre au point un algorithme capable de déterminer la polarité (positive, négative, neutre) des sentiments relatifs à des aspects précis mentionnés dans les critiques de produits ou services. Pour cela, il se fonde sur l'extraction, le prétraitement et l'analyse de données textuelles issues de critiques structurées en XML, concernant des restaurants et des ordinateurs portables. 
+
+### Méthodologie Appliquée
+
+1. **Extraction des Données :** Utilisation de `xml.etree.ElementTree` pour parser les fichiers XML et extraire les éléments critiques : textes, termes d'aspect, et polarités.
+
+2. **Prétraitement :** Emploi de NLTK ou spaCy pour la tokenisation, l'élimination des mots vides et le tagging POS, préparant ainsi les textes à l'analyse sémantique.
+
+3. **Analyse et Classification :**
+   - **Analyse Lexicale :** Affectation de polarités aux mots via des lexiques tels que SentiWordNet, pour évaluer la polarité des termes d'aspect.
+   - **Modèles de Machine Learning :** Application d'approches comme le RandomForest pour classifier les sentiments, en se basant sur des caractéristiques textuelles et syntaxiques extraites.
+
+4. **Évaluation et Visualisation :** Comparaison des résultats du modèle avec un ensemble de test annoté pour en évaluer la performance. Utilisation de la visualisation pour illustrer les distributions des sentiments.
+
+### Réflexions Stratégiques
+
+- Le choix des outils et la méthodologie de modélisation sont guidés par l'exigence d'efficacité et de précision. La combinaison de techniques avancées de NLP et d'algorithmes de classification robustes permet d'atteindre cet objectif.
+
+- L'importance accordée à la préparation des données souligne la nécessité d'une base solide pour l'analyse de sentiment, tandis que la diversité des approches d'évaluation garantit une mesure complète des performances du modèle.
+
+### Conclusion
+
+Ce travail démontre l'efficacité de l'analyse de sentiment basée sur les aspects pour extraire des insights précis à partir de critiques textuelles. La méthodologie adoptée, combinant prétraitement des données, analyse lexicale et modélisation avancée, ouvre des perspectives enrichissantes pour la compréhension et l'exploitation des opinions exprimées dans les textes.
+
+
 
 ```python
 # Préparation de l'environnement NLTK
@@ -70,15 +101,11 @@ if __name__ == '__main__':
 ```
 
 
-Ce bloc de code illustre la première partie du projet d'analyse de sentiment basée sur les aspects dans des textes critiques. L'objectif est d'extraire les données depuis des fichiers XML, de préparer et vectoriser ces données pour ensuite entraîner un modèle de classification de sentiment. Les étapes clés incluent :
+- **Extraction :** `extraire_donnees_depuis_xml` parse des fichiers XML pour obtenir textes, aspects et polarités.
+- **Vectorisation :** `TfidfVectorizer` transforme les textes en vecteurs pour l'importance relative des mots.
+- **Modèle :** Utilisation de Random Forest pour la classification basée sur les vecteurs TF-IDF.
+- **Évaluation :** Mesure de performance (précision, rappel, F1) sur un ensemble de test.
 
-- **Extraction des Données :** Les critiques et les informations relatives aux aspects et polarités sont extraites des fichiers XML. Cela est effectué par la fonction `extraire_donnees_depuis_xml`, qui parcourt le document XML pour récupérer les phrases, aspects, et leur polarité associée.
-
-- **Prétraitement et Vectorisation :** Les textes extraits sont transformés en vecteurs numériques via TF-IDF (Term Frequency-Inverse Document Frequency) en utilisant `TfidfVectorizer`. Cela permet de refléter l'importance de chaque mot par rapport à l'ensemble du corpus.
-
-- **Entraînement du Modèle :** Les vecteurs TF-IDF servent à entraîner un modèle de classification Random Forest. Ce choix est dû à la robustesse et l'efficacité de Random Forest dans la gestion des données textuelles de haute dimension et la classification de sentiments.
-
-- **Évaluation du Modèle :** La performance du modèle est évaluée sur un ensemble de test séparé, en utilisant des métriques telles que la précision, le rappel, et le score F1. Les résultats sont affichés pour chaque catégorie (restaurants, laptops) et sauvegardés pour une analyse ultérieure.
 ---
 
 
@@ -149,23 +176,12 @@ for chemin_entree, chemin_sortie in chemins_entree_sortie:
     
 ```
 
+- **Préparation :** Téléchargement de ressources NLTK pour le traitement du texte.
+- **Adaptation POS :** Conversion des tags POS de NLTK en tags compatibles avec SentiWordNet.
+- **Analyse :** Tokenisation et évaluation de la polarité des mots via SentiWordNet.
+- **Stockage :** Enregistrement des scores de sentiments pour analyses futures.
+- **Flexibilité :** Adaptabilité à différents ensembles de données XML.
 
-Ce bloc de code démontre un processus d'analyse de sentiment basée sur les aspects pour différents ensembles de données textuelles. Le processus comporte plusieurs étapes clés, allant du prétraitement des données à l'extraction de sentiments, en utilisant des outils de traitement de langage naturel (NLP) fournis par NLTK.
-
-
-- **Préparation de l'Environnement :** Les ressources nécessaires de NLTK (`wordnet`, `stopwords`, `sentiwordnet`, `punkt`, `averaged_perceptron_tagger`) sont téléchargées pour fournir des outils de tokenisation, de tagging POS, et d'accès à une base de données lexicale pour l'analyse sémantique.
-
-
-- **Adaptation des Tags POS :**  Une fonction `adapter_tag_pos` convertit les tags de parties de discours (POS) de NLTK en tags compatibles avec SentiWordNet, facilitant l'analyse sémantique des mots en fonction de leur rôle grammatical.
-
-
-- **Analyse de Sentiment :** La fonction `analyser_sentiments_fichier` est le cœur du processus. Elle charge et analyse des fichiers XML contenant des critiques textuelles, tokenize les phrases, et utilise les tags POS pour filtrer les stopwords et identifier la polarité des mots à l'aide de SentiWordNet.Chaque mot non-stopword est évalué pour son score positif et négatif dans SentiWordNet, permettant une approximation de son sentiment.
-
-
-- **Stockage des Résultats :** Les scores de sentiment sont sauvegardés dans des fichiers spécifiés, prêts pour des analyses ultérieures ou pour entraîner des modèles de machine learning.
-
-
-- **Application à Plusieurs Ensembles de Données :** Le script traite plusieurs fichiers XML, chacun contenant des critiques sur des restaurants ou des ordinateurs portables. Cela montre la flexibilité de l'approche pour analyser différents types de textes.
 ---
 
 
@@ -213,19 +229,12 @@ vis_dist_sent(chems_fichs)
 ![plot](plot.png)
 
 
-- **Téléchargement des Ressources NLTK :** Avant d'analyser les sentiments, il télécharge les ressources essentielles telles que `wordnet`, `stopwords`, `sentiwordnet`, `punkt`, et `averaged_perceptron_tagger` de NLTK, qui sont cruciales pour la tokenisation, le tagging POS, et l'accès à une base de données lexicale pour l'analyse sémantique.
+- **Adaptation POS :** Converte les tags POS via `adapter_tag_pos` pour aligner avec SentiWordNet, utile pour l'analyse sémantique.
+- **Extraction Sentiments :** `analyser_sentiments_fichier` tokenise, filtre, et évalue les sentiments en utilisant SentiWordNet, estimant la polarité de chaque mot.
+- **Stockage Résultats :** Sauvegarde les scores de sentiments pour des analyses futures ou l'entraînement de modèles.
+- **Diversité des Données :** Applique le script à des données variées, démontrant sa flexibilité pour analyser différents types de textes.
+- **Visualisation :** Utilise `matplotlib.pyplot` pour afficher graphiquement la distribution des sentiments, offrant une perspective claire sur les données analysées.
 
-- **Adaptation des Tags POS :** Le script définit une fonction `adapter_tag_pos` pour convertir les tags POS de NLTK en tags compatibles avec SentiWordNet. Cette étape est essentielle pour l'analyse sémantique des mots selon leur rôle grammatical.
-
-- **Analyse et Extraction des Sentiments :** La fonction principale `analyser_sentiments_fichier` traite les données de chaque fichier XML, en tokenisant les textes, en filtrant les stopwords, et en déterminant la polarité des mots grâce à SentiWordNet. Cela permet d'estimer le sentiment de chaque mot.
-
-- **Stockage des Résultats :** Les scores de sentiments sont enregistrés dans des fichiers spécifiés, prêts pour des analyses ultérieures ou pour entraîner des modèles de machine learning.
-
-- **Application à Plusieurs Ensembles de Données :** Le script est appliqué à différents fichiers, chacun représentant des ensembles de données sur des restaurants ou des ordinateurs portables, montrant ainsi la flexibilité de l'approche pour différentes catégories de texte.
-
-- **Visualisation des Résultats :** Finalement, le script utilise `matplotlib.pyplot` pour visualiser la répartition des sentiments positifs et négatifs à travers les différents fichiers, offrant une représentation graphique claire des résultats de l'analyse.
-
-Ce processus illustre comment combiner le traitement de langage naturel et la visualisation des données pour extraire et présenter des insights significatifs à partir de critiques textuelles, en se concentrant sur l'analyse de sentiment basée sur les aspects.
 
 ---
 
@@ -335,20 +344,11 @@ traiter_et_evaluer_fichiers(fichiers_entrainement, fichiers_test_sans_etiquettes
 
 ```
 
+- **Extraction XML :** Utilise `lire_et_extraire_xml` pour parcourir les données XML, extraire les informations critiques telles que le texte, les termes d'aspect et leur polarité.
+- **Calcul de Polarité :** Avec `calculer_polarite`, analyse le sentiment basé sur les termes d'aspect en utilisant SentiWordNet et ajuste les scores de sentiment en fonction du contexte des mots.
+- **Traitement des Fichiers :** `traiter_et_evaluer_fichiers` analyse le sentiment des termes d'aspect dans les données non étiquetées et se prépare pour une évaluation précise contre un standard de référence.
+- **Adaptation POS :** Adapte les tags POS pour une compatibilité totale avec SentiWordNet, assurant une analyse sémantique précise.
 
-- **Importation des Bibliothèques :** Le script commence par importer `xml.etree.ElementTree` pour traiter les données XML, `nltk` pour le traitement du langage naturel, et `sentiwordnet` de `nltk.corpus` pour l'analyse des sentiments basée sur WordNet.
-
-- **Téléchargement des Ressources NLTK :** Avant de procéder à l'analyse, il est essentiel de télécharger les ressources telles que `averaged_perceptron_tagger`, `sentiwordnet`, et `punkt` qui permettent le tagging de partie de discours, l'accès à la base de données de sentiment WordNet, et la tokenisation, respectivement.
-
-- **Extraction de Données depuis XML :** La fonction `lire_et_extraire_xml` parcourt le fichier XML, lisant chaque phrase, ses termes d'aspect et catégories d'aspect, et les stocke dans une structure de données pour une analyse ultérieure.
-
-- **Calcul de Polarité des Sentiments :** `calculer_polarite` analyse le sentiment d'un texte en fonction des termes donnés. Elle utilise SentiWordNet et le tagging POS pour attribuer un score de sentiment à chaque mot, ajustant la contribution de chaque mot au score global basé sur sa position par rapport au terme d'aspect.
-
-- **Traitement et Évaluation des Fichiers :** `traiter_et_evaluer_fichiers` utilise les fonctions précédentes pour analyser le sentiment des termes d'aspect dans de nouveaux ensembles de données, sans étiquettes de polarité préétablies. Elle prévoit également un emplacement pour la comparaison avec un ensemble de données de test 'gold standard', ce qui permettrait d'évaluer la précision de l'approche.
-
-- **Adaptation des Tags POS :** Une fonction supplémentaire adapte les tags POS de NLTK aux catégories utilisées par SentiWordNet, essentielle pour assurer que l'analyse de sentiment est correctement effectuée en fonction de la catégorie grammaticale de chaque mot.
-
-Ce code représente une méthodologie complète pour l'extraction, l'analyse et l'évaluation des sentiments basés sur les aspects dans les textes, montrant comment les techniques de traitement de langage naturel peuvent être appliquées pour obtenir des insights précieux à partir de données textuelles structurées en XML.
 
 
 ---
@@ -427,40 +427,12 @@ print(f'Précision: {precision:.4f}, Rappel: {rappel:.4f}, F-Score: {f_score:.4f
 **Précision: 0.7107, Rappel: 0.7253, F-Score: 0.7141, Score d'exactitude: 0.7253**
 
 
-- **Introduction aux Bibliothèques et Téléchargements :** Ce script utilise la bibliothèque `xml.etree.ElementTree` pour la manipulation des fichiers XML, `nltk` et `pandas` pour le traitement des données textuelles, et des modules spécifiques de `sklearn` pour le Machine Learning. Avant toute analyse, il assure le téléchargement des ressources NLTK nécessaires telles que le tokeniseur, les mots vides (`stopwords`), et le tagger POS.
+- **Extraction et Traitement :** La fonction `extraire_donnees_de_xml` parcourt des fichiers XML pour extraire des données pertinentes stockées ensuite dans un DataFrame pour l'analyse.
+- **Vectorisation :** Transformation des textes en vecteurs numériques via `CountVectorizer`, en excluant les mots vides pour améliorer la pertinence des caractéristiques.
+- **Modélisation :** Division des données en ensembles d'entraînement et de test, et entraînement d'un modèle RandomForest pour classer les sentiments.
+- **Évaluation :** Utilisation de métriques telles que précision, rappel, F-Score pour évaluer les performances du modèle sur l'ensemble de test.
 
-- **Extraction de Données XML :** La fonction `extraire_donnees_de_xml` est conçue pour parcourir des fichiers XML, extraire les informations pertinentes (texte, termes d'aspect, polarité, début et fin des termes d'aspect) et les stocker dans un DataFrame `pandas`. Cette étape est cruciale pour convertir les données structurées en XML en un format tabulaire manipulable pour l'analyse.
-
-- **Prétraitement Textuel :** Avant de vectoriser les textes pour le Machine Learning, le script retire les mots vides en utilisant une liste personnalisée basée sur `stopwords` de NLTK, améliorant ainsi la pertinence des caractéristiques textuelles.
-
-- **Vectorisation et Préparation des Données :** L'utilisation de `CountVectorizer` transforme le texte en une matrice de fréquence de termes, excluant les mots vides. Les labels sont également préparés, transformant la polarité des sentiments en valeurs numériques pour faciliter l'analyse.
-
-- **Division des Données et Entraînement du Modèle :** Les données sont divisées en ensembles d'entraînement et de test. Un modèle de forêt aléatoire (`RandomForestClassifier`) est entraîné sur l'ensemble d'entraînement.
-
-- **Évaluation du Modèle :** Après la prédiction sur l'ensemble de test, le script évalue le modèle à l'aide de la précision (`accuracy`), du rappel (`recall`), du F-Score et de la précision globale (`precision`). Ces métriques fournissent une vue d'ensemble des performances du modèle, montrant sa capacité à classer correctement les sentiments des termes d'aspect.
-
-Ce script illustre une approche intégrée pour traiter et analyser les sentiments à partir de données textuelles, en passant de la préparation des données à l'évaluation du modèle. Il souligne l'importance d'une représentation adéquate des données textuelles et démontre l'efficacité des modèles de forêt aléatoire dans la classification des sentiments basés sur les aspects.
-
-
-## Conclusion du TP d'Analyse des Sentiments Basée sur les Aspects
-
-Ce TP a fourni une exploration complète de l'analyse des sentiments basée sur les aspects, un domaine crucial du traitement automatique des langues (TAL) qui vise à comprendre la polarité (positive, négative, neutre) des sentiments exprimés dans le texte en relation avec des aspects spécifiques. À travers l'application de techniques avancées de NLP et l'utilisation d'algorithmes de Machine Learning, nous avons pu aborder et résoudre des problèmes complexes de classification des sentiments.
-
-### Points Clés du TP
-
-- **Extraction et Prétraitement des Données :** La capacité à extraire et transformer efficacement les données à partir de formats structurés (comme XML) en un format adapté pour l'analyse est fondamentale. L'accent a été mis sur la préparation des données, comprenant le nettoyage du texte, la tokenisation, le filtrage des mots vides et le tagging POS, étapes préliminaires essentielles pour toute tâche de TAL.
-
-- **Analyse Sentimentale Basée sur les Aspects :** L'identification des aspects spécifiques et l'évaluation des sentiments qui leur sont associés représentent un défi significatif, nécessitant une compréhension profonde du contexte et des nuances linguistiques. En adaptant les méthodes d'extraction de caractéristiques et en employant des modèles de classification robustes, nous avons pu obtenir des insights précieux sur les opinions des utilisateurs concernant différents aspects des produits ou services.
-
-- **Utilisation de Ressources Lexicales :** L'emploi de lexiques tels que SentiWordNet et d'autres ressources d'émotions a permis d'augmenter la précision de l'analyse en associant aux mots des scores de polarité basés sur des évaluations préétablies, enrichissant ainsi notre compréhension des sentiments exprimés.
-
-- **Modélisation et Évaluation :** L'application de modèles de Machine Learning, notamment les forêts aléatoires, a illustré l'efficacité de ces techniques dans la classification des sentiments. Les processus d'évaluation, à travers des métriques telles que la précision, le rappel et le F-Score, ont offert une vue d'ensemble des performances du modèle, soulignant à la fois les réussites et les axes d'amélioration.
-
-### Réflexions Finales
-
-Ce TP a non seulement renforcé la compréhension des principes fondamentaux de l'analyse des sentiments et du traitement du langage naturel mais a également souligné l'importance d'une approche méthodique et analytique dans le traitement des données textuelles. Les défis rencontrés et les solutions apportées mettent en lumière la complexité et la richesse de la langue, ainsi que le potentiel des technologies de TAL pour extraire des connaissances significatives à partir de données textuelles volumineuses.
-
-En conclusion, l'analyse des sentiments basée sur les aspects représente un domaine passionnant et en constante évolution du TAL, offrant de vastes possibilités pour explorer et comprendre les opinions et attitudes des individus.
+**Conclusion :** Ce TP a mis en lumière l'importance de l'extraction, du traitement, et de l'analyse des sentiments basés sur les aspects, en utilisant des méthodes de NLP et de Machine Learning pour extraire des insights à partir de données textuelles.
 
 
 
