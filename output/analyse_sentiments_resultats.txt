@@ -1,0 +1,2 @@
+Catégorie: restaurant, Score: 0.698051948051948
+Catégorie: laptop, Score: 0.735593220338983
